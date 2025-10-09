@@ -18,7 +18,3 @@ spec:
           name: guestbook-ui
           ports:
             - containerPort: 80
-        - image: gcr.io/google-samples/gb-frontend:v5
-          name: guestbook-ui-test
-          ports:
-            - containerPort: 81
