@@ -5,5 +5,3 @@ metadata:
 data:
   test-1.json: |-
     { "description": "Test ConfigMap to diagnose Argo sync issues" }
-  test-2.json: |-
-    { "description": "Test ConfigMap to diagnose Argo sync issues" }
