@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "helm-guestbook.name" . }}-cm
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ include "helm-guestbook.name" . }}-cm
+    release: "{{ .Release.Name }}"
+data:
+  {{- toYaml .Values.configMap.data | nindent 2 }}

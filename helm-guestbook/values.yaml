@@ -29,6 +29,17 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+configMap:
+  data:
+    test-1.json: |-
+      { "description": "Test ConfigMap to diagnose Argo sync issues" }
+    test-2.json: |-
+      { "description": "Test ConfigMap to diagnose Argo sync issues 2" }
+  namespace: default
+  labels:
+    app: helm-guestbook-cm
+    release: "{{ .Release.Name }}"
+
 resources:
   {}
   # We usually recommend not to specify default resources and to leave this as a conscious
