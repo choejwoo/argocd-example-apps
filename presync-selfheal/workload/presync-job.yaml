@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: presync-health-check
+  namespace: default
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "-5"
+  labels:
+    app.kubernetes.io/name: presync-health-check
+    app.kubernetes.io/part-of: presync-selfheal
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: presync-health-check
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: hook
+          image: alpine:3.20
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "[presync] verifying downstream dependencies"
+              sleep 5
+              echo "[presync] done"
+  backoffLimit: 0
+

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: presync-selfheal-sample
+  namespace: default
+  labels:
+    scenario: presync-selfheal
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/choejwoo/argocd-example-apps.git
+    targetRevision: HEAD
+    path: presync-selfheal/workload
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  revisionHistoryLimit: 3
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=false
+
