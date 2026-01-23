@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dirty-trigger
+data:
+  # 값 없으면 helm template가 실패하도록 일부러 만듦
+  requiredValue: {{ .Values.requiredValue }}
