@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hydrator-helm-multivalues
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  sourceHydrator:
+    drySource:
+      repoURL: https://github.com/<YOUR_GH_USER_OR_ORG>/argocd-example-apps
+      targetRevision: master
+      path: hydrator-e2e/dry/helm-multivalues
+      helm:
+        valueFiles:
+          - values.yaml
+          - values-dev.yaml
+    hydrateTo:
+      targetBranch: environments/dev-next
+    syncSource:
+      targetBranch: environments/dev
+      path: hydrator-e2e/hydrated/helm-multivalues
+

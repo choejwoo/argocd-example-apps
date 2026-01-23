@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app.name }}-cm
+data:
+  # This will crash rendering if requiredValue is missing (nil pointer),
+  # which is what we want to detect "second helm template run without -f values-dev.yaml".
+  requiredValue: {{ .Values.requiredValue | quote }}
+

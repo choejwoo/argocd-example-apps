@@ -1,0 +1,7 @@
+apiVersion: v2
+name: helm-multivalues
+description: Minimal chart requiring extra values file (for Source Hydrator e2e)
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
