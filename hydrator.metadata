@@ -1,0 +1,7 @@
+{
+  "repoURL": "https://github.com/choejwoo/argocd-example-apps",
+  "drySha": "1797d22f1cde8c59174ffeb85e30e9c3f0d913ee",
+  "author": "choejwoo <jaewoo45@gmail.com>",
+  "date": "2026-01-23T11:15:50Z",
+  "subject": "hydrator-e2e: add helm multi-values dry source"
+}
