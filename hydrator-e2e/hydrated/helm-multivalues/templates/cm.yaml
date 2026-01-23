@@ -3,5 +3,6 @@ kind: ConfigMap
 metadata:
   name: dirty-trigger
 data:
-  # 값 없으면 helm template가 실패하도록 일부러 만듦
-  requiredValue: {{ .Values.requiredValue }}
+  # Force a Helm rendering error if requiredValue is missing.
+  # This mimics the original issue where the second helm template run does not use extra values files.
+  requiredValue: {{ .Values.requiredValue.subkey }}
