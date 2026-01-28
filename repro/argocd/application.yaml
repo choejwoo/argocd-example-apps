@@ -6,10 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    # TODO: change to a Git repo URL your Argo CD can reach (https or ssh)
     repoURL: https://github.com/choejwoo/argocd-example-apps.git
-    # TODO: change to the path inside that repo where these manifests live
-    path: repro/rs-delete-ui-crash/base
+    path: repro/base
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
