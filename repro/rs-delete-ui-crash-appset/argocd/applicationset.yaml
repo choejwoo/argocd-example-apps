@@ -10,8 +10,9 @@ spec:
     preserveResourcesOnDeletion: false
   generators:
     - git:
+        # TODO: change to a Git repo URL your Argo CD can reach (https or ssh)
         repoURL: https://github.com/choejwoo/argocd-example-apps.git
-        revision: main
+        revision: master
         files:
           - path: repro/rs-delete-ui-crash-appset/services/**/config.json
   template:
@@ -29,9 +30,9 @@ spec:
           jsonPointers:
             - /spec/replicas
       source:
+        # TODO: keep in sync with generators[0].git.repoURL
         repoURL: https://github.com/choejwoo/argocd-example-apps.git
-        targetRevision: main
-        # Note: this comes from config.json (matches the user-reported template style)
+        targetRevision: master
         path: "{{ path }}"
       destination:
         server: https://kubernetes.default.svc
