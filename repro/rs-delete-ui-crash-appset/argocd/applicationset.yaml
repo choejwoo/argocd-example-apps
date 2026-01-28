@@ -33,7 +33,10 @@ spec:
         # TODO: keep in sync with generators[0].git.repoURL
         repoURL: https://github.com/choejwoo/argocd-example-apps.git
         targetRevision: master
-        path: "{{ path }}"
+        # NOTE: the git-files generator already exposes a built-in `path` (the config file's directory),
+        # which can cause Argo CD to scan the directory containing `config.json` and fail with "Kind is missing".
+        # Use an explicit parameter from config.json instead.
+        path: "{{ sourcePath }}"
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{ application.namespace }}"
