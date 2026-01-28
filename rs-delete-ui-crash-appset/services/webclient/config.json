@@ -1,0 +1,8 @@
+{
+  "application": {
+    "name": "rs-delete-ui-crash-webclient",
+    "namespace": "rs-delete-ui-crash"
+  },
+  "path": "repro/rs-delete-ui-crash-appset/services/webclient"
+}
+

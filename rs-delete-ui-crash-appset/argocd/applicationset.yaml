@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: rs-delete-ui-crash-appset
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - git:
+        repoURL: https://github.com/choejwoo/argocd-example-apps.git
+        revision: main
+        files:
+          - path: repro/rs-delete-ui-crash-appset/services/**/config.json
+  template:
+    metadata:
+      name: "{{ application.name }}"
+      annotations:
+        argocd.argoproj.io/sync-wave: "{{ application.syncWave }}"
+        argocd.argoproj.io/compare-options: ServerSideDiff=false
+        argocd.argoproj.io/manifest-generate-paths: .
+    spec:
+      project: default
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas
+      source:
+        # TODO: keep in sync with generators[0].git.repoURL
+        repoURL: https://github.com/YOUR_ORG/YOUR_REPO.git
+        targetRevision: main
+        # Note: this comes from config.json (matches the user-reported template style)
+        path: "{{ path }}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{ application.namespace }}"
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - CreateNamespace=true
+

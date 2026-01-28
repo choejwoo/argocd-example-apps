@@ -5,9 +5,10 @@ metadata:
   namespace: rs-delete-ui-crash
   labels:
     app.kubernetes.io/name: webclient
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   replicas: 1
-  # Keep old ReplicaSets around so we can reproduce with >=2 old RS.
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -19,8 +20,8 @@ spec:
     spec:
       containers:
         - name: webclient
-          # Change this image tag twice (commit+sync each time) to create two old ReplicaSets.
+          # Change this tag twice (commit+sync each time) to create 2 old ReplicaSets.
           image: nginx:1.25
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 
