@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webclient
+  namespace: rs-delete-ui-crash
+  labels:
+    app.kubernetes.io/name: webclient
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webclient
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: webclient
+    spec:
+      containers:
+        - name: webclient
+          # Change this tag twice (commit+sync each time) to create 2 old ReplicaSets.
+          image: nginx:1.25
+          ports:
+            - containerPort: 8080
+
